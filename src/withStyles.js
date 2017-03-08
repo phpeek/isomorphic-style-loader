@@ -33,7 +33,13 @@ function withStyles(...styles) {
     const displayName = ComposedComponent.displayName || ComposedComponent.name || 'Component';
 
     WithStyles.displayName = `WithStyles(${displayName})`;
-    WithStyles.contextTypes = contextTypes;
+
+    if (WithStyles.contextTypes) {
+      WithStyles.contextTypes = Object.assign(WithStyles.contextTypes, contextTypes);
+    } else {
+      WithStyles.contextTypes = contextTypes;
+    }
+
     WithStyles.ComposedComponent = ComposedComponent;
 
     return hoistStatics(WithStyles, ComposedComponent);
